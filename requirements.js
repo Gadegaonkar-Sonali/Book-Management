@@ -6,7 +6,7 @@ Requirements for Book Management:
 2. Authors - ID, name, books[]
 3. Publications - id, name, books[]
 
-✔ APIs that we will need:
+APIs that we will need:
 ✔1. Books
    ✔ to get all books 
    ✔ to get specific books
@@ -20,6 +20,34 @@ Requirements for Book Management:
    ✔ to get all publications
    ✔ to get a specific publication
    ✔ to get a list of publication based on a book
+
+4.      B O O K S
+ POST
+   ✔ to add a new book
+ PUT
+   ✔ to update book title
+   ✔ to update author name
+ DELETE
+    to delete a book (reflects for authors obj as well)
+    to delete an author
+
+5.      A U T H O R S
+ POST
+   ✔ to add a new author
+ PUT
+   ✔ to update author name
+ DELETE
+    to delete an author
+
+6.   P U B L I C A T I O N S
+ POST
+   ✔ to add a new publication
+ PUT
+   ✔ to update publication name
+    update/add books to publication
+ DELETE
+    to delete a publication
+    to delete a book from publication
 */
 
 
@@ -28,4 +56,5 @@ Requirements for Book Management:
     1. Installtion of nodemon
     2. npx nodemon index
     3. includes method for array of strings
+    4. POSTMAN
 */
