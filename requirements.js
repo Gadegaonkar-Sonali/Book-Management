@@ -28,8 +28,8 @@ APIs that we will need:
    ✔ to update book title
    ✔ to update author name
  DELETE
-    to delete a book (reflects for authors obj as well)
-    to delete an author
+   ✔ to delete a book (reflects for authors obj as well)
+   ✔ to delete an author
 
 5.      A U T H O R S
  POST
@@ -37,17 +37,17 @@ APIs that we will need:
  PUT
    ✔ to update author name
  DELETE
-    to delete an author
+   ✔ to delete an author
 
 6.   P U B L I C A T I O N S
  POST
    ✔ to add a new publication
  PUT
    ✔ to update publication name
-    update/add books to publication
+   ✔ update/add books to publication
  DELETE
-    to delete a publication
-    to delete a book from publication
+   ✔ to delete a publication
+   ✔ to delete a book from publication
 */
 
 
@@ -57,4 +57,5 @@ APIs that we will need:
     2. npx nodemon index
     3. includes method for array of strings
     4. POSTMAN
+    5. .gitignore
 */

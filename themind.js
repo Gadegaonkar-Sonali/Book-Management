@@ -15,7 +15,7 @@ Parameter: NONE
 Method: GET
 */
 Boko.get("/", (req, res) => {
-    return res.json({books: database.books});
+     res.json({books: database.books});
 });
 
 /*  --------- Get Specific Book ---------
@@ -31,10 +31,10 @@ Boko.get("/is/:isbn", (req, res) => {
     );
 //to check if the book is present or not, check the array lenght
     if(getSpecificBook.length === 0)
-        return res.json({
+         res.json({
                 error: `ISBN ${req.params.isbn} not found.`,
         });
-    return res.json({book: getSpecificBook});
+     res.json({book: getSpecificBook});
 });
 
 /*  --------- Get Specific Category Book ---------
@@ -50,10 +50,10 @@ Boko.get("/c/:category", (req, res) => {
             (book) => book.category.includes(req.params.category)
         );
     if(getSpecificBook.length === 0)
-        return res.json(
+         res.json(
             {error: `Category ${req.params.category} NOT found.`}
         );
-    return res.json({book: getSpecificBook});
+     res.json({book: getSpecificBook});
 });
 
 /*  --------- Get Specific Language Book ---------
@@ -68,10 +68,10 @@ Boko.get("/lang/:language", (req, res) => {
         (book) => book.language === req.params.language
     );
     if(getSpecificBook.length === 0)
-        return res.json(
+         res.json(
             {error: `Language ${req.params.language} NOT found.`}
         );
-    return res.json({book: getSpecificBook});
+     res.json({book: getSpecificBook});
 });
 
 
@@ -83,7 +83,7 @@ Parameter: NONE
 Method: GET
 */
 Boko.get("/author", (req, res) => {
-    return res.json({authors: database.authors})
+     res.json({authors: database.authors})
 });
 
 /*  --------- Get Specific Author  ---------
@@ -98,10 +98,10 @@ Boko.get("/author/:name", (req, res) => {
         (author) => author.name === req.params.name
     );
     if(getSpecificAuthor.length === 0)
-        return res.json(
+         res.json(
             {error: `Author ${req.params.name} NOT found.`}
         );
-    return res.json({author: getSpecificAuthor});
+     res.json({author: getSpecificAuthor});
 });
 
 /*  --------- Get Authors based on Book ISBN  ---------
@@ -116,8 +116,8 @@ Boko.get("/author/book/:isbn", (req, res) => {
         (author) => author.books.includes(req.params.isbn)
     );
     if(getSpecificAuthor.length === 0)
-        return res.json({error: `Author for ISBN ${req.params.isbn} NOT found.`});
-    return res.json({author: getSpecificAuthor});
+         res.json({error: `Author for ISBN ${req.params.isbn} NOT found.`});
+     res.json({author: getSpecificAuthor});
 });
 
 /*  --------- Get all Publications API  ---------
@@ -128,7 +128,7 @@ Parameter: NONE
 Method: GET
 */
 Boko.get("/pub", (req, res) => {
-    return res.json({publications: database.publications});
+     res.json({publications: database.publications});
 });
 
 /*  --------- Get a Specific Publication API  ---------
@@ -143,10 +143,10 @@ Boko.get("/pub/:name", (req, res) => {
         (publication) => publication.name === req.params.name
     );
     if(getSpecificPublication.length === 0)
-        return res.json(
+         res.json(
             {error: `Publication ${req.params.name} NOT found`}
         );
-    return res.json({publication: getSpecificPublication});
+     res.json({publication: getSpecificPublication});
 });
 
 /*  --------- Get Publication wrt ISBN API  ---------
@@ -161,10 +161,10 @@ Boko.get("/pub/books/:isbn", (req, res) => {
         (pub) => pub.books.includes(req.params.isbn)
     );
     if(getSpecificPublication.length === 0)
-        return res.json(
+         res.json(
             {error: `Publication with ISBN ${req.params.isbn} NOT found.`}
         );
-    return res.json({publication: getSpecificPublication});
+     res.json({publication: getSpecificPublication});
 });
 
 /*  --------- Adding a New Book ---------
@@ -177,7 +177,7 @@ Method: POST
 Boko.post("/book/add", (req, res) => {
     const {newBook} = req.body; //destructuring. This is the same as const newBook = req.body.newBook;
     database.books.push(newBook);
-    return res.json({books: database.books});
+     res.json({books: database.books});
 });
 
 /*  --------- Adding a New Author ---------
@@ -190,7 +190,7 @@ Method: POST
 Boko.post("/author/add", (req, res) => {
     const {newAuthor} = req.body;
     database.authors.push(newAuthor);
-    return res.json({authors: database.authors});
+     res.json({authors: database.authors});
 });
 
 /*  --------- Adding a New Publication ---------
@@ -203,7 +203,7 @@ Method: POST
 Boko.post("/pub/add", (req, res) => {
     const {newPublication} = req.body;
     database.publications.push(newPublication);
-    return res.json({publication: database.publications});
+     res.json({publication: database.publications});
 });
 
 /*  --------- Updating Book Title ---------
@@ -221,10 +221,10 @@ Boko.put("/book/update/title/:isbn", (req, res) => {
         if(book.ISBN === req.params.isbn)
         {
             book.title = req.body.newBookTitle;
-            return; //to end the if
+            ; //to end the if
         }
     });
-    return res.json({books: database.books});
+     res.json({books: database.books});
 });
 
 /*  --------- Updating Book Author ---------
@@ -238,15 +238,15 @@ Boko.put("/book/update/author/:isbn/:authorID", (req, res) => {
     //update book database
     database.books.forEach((book) => {
         if(book.ISBN === req.params.isbn)
-            return book.authors.push(parseInt(req.params.authorID)); //parseInt so that the number gets stored as a num and not string
+             book.authors.push(parseInt(req.params.authorID)); //parseInt so that the number gets stored as a num and not string
     });
     //update author database as well
     database.authors.forEach((author) => {
         if(author.id === parseInt(req.params.authorID))
-            return author.books.push(req.params.isbn);
+             author.books.push(req.params.isbn);
     });
 
-    return res.json({books: database.books, author: database.authors});
+     res.json({books: database.books, author: database.authors});
 });
 
 /*  --------- Updating Author Name ---------
@@ -260,15 +260,15 @@ Boko.put("/author/update/:id", (req, res) => {
     database.authors.forEach((author) => {
         if(author.id === parseInt(req.params.id))
             author.name = req.body.newAuthorName;
-            return;
+            ;
     });
-    return res.json({author: database.authors});
+     res.json({author: database.authors});
 });
 
 
 /*  --------- Updating Publication Name ---------
 Route: pub/update
-Description: update author name
+Description: update publication name
 Access: PUBLIC
 Parameter: id
 Method: PUT
@@ -277,9 +277,158 @@ Boko.put("/pub/update/:id", (req, res) => {
     database.publications.forEach((pub) => {
         if(pub.id === parseInt(req.params.id))
             pub.name = req.body.newPublicationName;
-            return;
+            ;
     });
-    return res.json({publication: database.publications});
+     res.json({publication: database.publications});
+});
+
+/*  --------- Adding Publications ---------
+Route: pub/update/book
+Description: adding publication
+Access: PUBLIC
+Parameter: isbn
+Method: PUT
+*/
+Boko.put("/pub/update/book/:isbn", (req, res) => {
+    database.publications.forEach((pub_data) => {
+        if(pub_data.id === req.body.pub_ID)
+             pub_data.books.push(req.params.isbn); 
+    });
+    //updating isbn in books object
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn)
+        {
+            book.publications = req.body.pub_ID;
+            ;
+        }
+    });
+     res.json(
+        {
+            message: "Successfully Updated Publications and Books.",
+            books: database.books,
+            publications: database.publications
+        }
+    );
+});
+
+/*  --------- Deleting a Book ---------
+Route: /book/delete
+Description: deleting a book
+Access: PUBLIC
+Parameter: isbn
+Method: DELETE
+*/
+Boko.delete("/book/delete/:isbn", (req, res) => {
+    //forEach will be quite lenghty. Here we will hence use map;
+     //we cannot change books database as a whole directly as it is a constant. Hence convert it to let for the below code to work
+    const updatedBookDatabase = database.books.filter(
+        (book) => book.ISBN !== req.params.isbn
+    ); //don't use curly braces in filter
+    database.books = updatedBookDatabase;
+    return res.json({books: database.books});
+});
+
+/*  --------- Deleting Author from books ---------
+Route: /book/author/delete
+Description: deleting a book's author
+Access: PUBLIC
+Parameter: isbn, author id
+Method: DELETE
+*/
+Boko.delete("/book/author/delete/:isbn/:authorID", (req, res) => {
+    //we are not doing anything to the whole database
+    //we are only changing one property
+    //Hence we use forEach
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn)
+        {
+            const newAuthorList = book.authors.filter(
+                //we don't need to do author.id as author by itself is id
+                //why? as author is an element inside of authors array(not obj) in books
+                (author) => author !== parseInt(req.params.authorID)
+            ); 
+            book.authors = newAuthorList;
+            return;
+        }   
+    });
+    //editing in authors obj
+    database.authors.forEach((author) => {
+        if(author.id === parseInt(req.params.authorID))
+        {
+            const newBooksList = author.books.filter(
+                (book) => book !== req.params.isbn
+            );
+            author.books = newBooksList;
+            return;
+        }
+    });
+    return res.json({books: database.books, authors: database.authors});
+});
+
+/*  --------- Deleting an Author ---------
+Route: /author/delete
+Description: deleting an author
+Access: PUBLIC
+Parameter: authorID
+Method: DELETE
+*/
+Boko.delete("/author/delete/:authorID", (req, res) => {
+    const UpdatedAuthorDatabase = database.authors.filter(
+        (author) => author.id !== parseInt(req.params.authorID)
+    );
+    database.authors = UpdatedAuthorDatabase;
+    return res.json({authors: database.authors});
+});
+
+/*  --------- Deleting a Publication ---------
+Route: /pub/delete
+Description: deleting a publication
+Access: PUBLIC
+Parameter: pubID
+Method: DELETE
+*/
+Boko.delete("/pub/delete/:pubID", (req, res) => {
+    const UpdatedPublicationDatabase = database.publications.filter(
+        (pub) => pub.id !== parseInt(req.params.pubID)
+    );
+    database.publications = UpdatedPublicationDatabase;
+    return res.json({publications: database.publications});
+});
+
+/*  --------- Deleting a Book from Publications ---------
+Route: /pub/book/delete
+Description: deleting a book from publications
+Access: PUBLIC
+Parameter: pubID, isbn
+Method: DELETE
+*/
+Boko.delete("/pub/book/delete/:pubID/:isbn",(req, res) => {
+    database.publications.forEach((pub) => {
+        if(pub.id === parseInt(req.params.pubID))
+        {
+            const updatedPublicationDatabase = pub.books.filter(
+                (book) => book !== req.params.isbn
+            );
+            pub.books = updatedPublicationDatabase;
+            return;
+        }
+    });
+    //editing in books database
+    database.books.forEach((book) => {
+        if(book.ISBN === req.params.isbn)
+        {
+            const updatedBookDatabase = book.publications.filter(
+                (pub) => pub !== parseInt(req.params.pubID)
+            );
+            book.publications = updatedBookDatabase;
+            return;
+        }
+    });
+
+    return res.json({
+                        books: database.books,
+                        publications: database.publications
+                     });
 });
 
 Boko.listen(3000, () => console.log("Server running..."));
