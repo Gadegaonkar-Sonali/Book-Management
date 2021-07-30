@@ -1,11 +1,23 @@
-
-//setting up express server
+require("dotenv").config(); //should always be on line number 1
+//setting up express server and mongoose
 const express = require("express");
+const mongoose = require("mongoose");
 //give a name to your project. I named it Boko
 const Boko = express();
 const database = require("./database");
 //our server doesn't understand JSON right away when it comes to using it as a body and not just a parameter, we need to tell it to use json
 Boko.use(express.json());
+//establishing database connection
+mongoose.connect(
+    process.env.MONGO_URL, 
+    {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true
+    }
+).then(() => console.log("Connection Established Successfully.")); //a promise
+
 
 /*   --------- Display All Books API  ---------
 Route: /
